@@ -32,7 +32,8 @@ dependencies:
     sdk: flutter
   http: ^0.13.4
   provider: ^6.0.0
-  url_launcher: ^6.0.9 # เพิ่มบรรทัดนี้
+  url_launcher: ^6.0.20
+  cached_network_image: ^3.2.0
 
 
   # The following adds the Cupertino Icons font to your application.

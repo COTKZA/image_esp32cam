@@ -14,13 +14,13 @@ switch ($request_method) {
         if (isset($_GET['id'])) {
             // Get a single image
             $id = intval($_GET['id']);
-            $stmt = $conn->prepare("SELECT * FROM images WHERE id = :id");
+            $stmt = $conn->prepare("SELECT * FROM ai_check WHERE id = :id");
             $stmt->execute([':id' => $id]);
             $image = $stmt->fetch(PDO::FETCH_ASSOC);
             echo json_encode($image);
         } else {
             // Get all images
-            $stmt = $conn->query("SELECT * FROM images");
+            $stmt = $conn->query("SELECT * FROM ai_check");
             $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode($images);
         }

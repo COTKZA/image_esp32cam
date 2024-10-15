@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:url_launcher/url_launcher.dart'; // นำเข้า url_launcher
+import 'package:url_launcher/url_launcher.dart';
 
 // ฟังก์ชันเพื่อดึงข้อมูลจาก API
 Future<List<ImageData>> fetchImages() async {
