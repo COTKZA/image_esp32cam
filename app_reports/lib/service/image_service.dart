@@ -5,8 +5,7 @@ import 'package:http/http.dart' as http;
 import '../models/image_data_model.dart';
 
 class ApiService {
-  final String apiUrl =
-      'http://192.168.100.221/image_esp32cam/api/api_ai_check.php';
+  final String apiUrl = 'http://127.0.0.1/image_esp32cam/api/api_ai_check.php';
 
   Future<List<ImageData>> fetchImages() async {
     final response = await http.get(Uri.parse(apiUrl));

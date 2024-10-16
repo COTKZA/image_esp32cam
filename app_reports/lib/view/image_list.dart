@@ -161,7 +161,7 @@ class _ImageListScreenState extends State<ImageListScreen> {
                         ElevatedButton(
                           onPressed: () async {
                             final url =
-                                'http://192.168.100.221/image_esp32cam/uploads/${image.fileName}';
+                                'http://127.0.0.1/image_esp32cam/uploads/${image.fileName}';
                             if (await canLaunch(url)) {
                               await launch(url); // เปิด URL ในเบราว์เซอร์
                             } else {

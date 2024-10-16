@@ -1,66 +1,55 @@
 import 'package:flutter/material.dart';
-import 'view/image_list.dart';
-import 'view/take_images.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'auth/login.dart'; // นำเข้าไฟล์ login.dart
+import './view/dashboard.dart'; // นำเข้าไฟล์ login.dart
 
 void main() {
-  runApp(MyApp());
+  runApp(MianApp());
 }
 
-class MyApp extends StatelessWidget {
+class MianApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ESP32-CAM Control',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MainScreen(), // Set MainScreen as the home screen
+      title: 'ESP32-CAM APP',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginScreen(), // หน้าเริ่มต้น
+        '/login': (context) => LoginScreen(), // หน้า login
+      },
     );
   }
 }
 
-class MainScreen extends StatefulWidget {
+class AuthCheck extends StatefulWidget {
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _AuthCheckState createState() => _AuthCheckState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0; // Track the currently selected index
+class _AuthCheckState extends State<AuthCheck> {
+  bool _isLoggedIn = false;
 
-  // List of screens for bottom navigation
-  final List<Widget> _screens = [
-    take_images(), // Screen for taking images
-    ImageListScreen(), // Screen for viewing images
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
 
-  void _onItemTapped(int index) {
+  Future<void> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
     setState(() {
-      _selectedIndex = index; // Update the selected index
+      _isLoggedIn = isLoggedIn;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ESP32-CAM Control'), // Title for the main screen
-      ),
-      body: _screens[_selectedIndex], // Display the currently selected screen
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: 'Capture',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.image),
-            label: 'View Images',
-          ),
-        ],
-        currentIndex: _selectedIndex, // Highlight the selected item
-        selectedItemColor: Colors.blueAccent,
-        onTap: _onItemTapped, // Handle item tap
-      ),
-    );
+    // ตรวจสอบสถานะการล็อกอิน
+    if (_isLoggedIn) {
+      return Dashboard(); // ถ้าล็อกอินแล้วให้ไปที่หน้า Dashboard
+    } else {
+      return LoginScreen(); // ถ้ายังไม่ได้ล็อกอินให้ไปที่หน้า Login
+    }
   }
 }
