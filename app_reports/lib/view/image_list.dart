@@ -113,6 +113,13 @@ class _ImageListScreenState extends State<ImageListScreen> {
     Future.delayed(Duration(seconds: 2), overlayEntry.remove);
   }
 
+  Future<void> _launchUrl(String url) async {
+    final Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,29 +168,33 @@ class _ImageListScreenState extends State<ImageListScreen> {
                         ElevatedButton(
                           onPressed: () async {
                             final url =
-                                'http://127.0.0.1/image_esp32cam/uploads/${image.fileName}';
-                            if (await canLaunch(url)) {
-                              await launch(url); // เปิด URL ในเบราว์เซอร์
-                            } else {
-                              throw 'ไม่สามารถเปิด $url';
+                                'http://10.0.2.2/image_esp32cam/uploads/${image.fileName}';
+                            try {
+                              await _launchUrl(url); // Open URL in browser
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Error: $e'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Colors.blueAccent, // สีพื้นหลังของปุ่ม
-                            foregroundColor: Colors.white, // สีตัวอักษร
+                            backgroundColor: Colors.blueAccent,
+                            foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12), // ขอบมุม
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10), // ขนาดของปุ่ม
-                            elevation: 5, // เงาของปุ่ม
+                                horizontal: 20, vertical: 10),
+                            elevation: 5,
                           ),
                           child: Text(
                             'View',
                             style: TextStyle(
-                              fontSize: 16, // ขนาดตัวอักษร
-                              fontWeight: FontWeight.bold, // ตัวหนา
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),

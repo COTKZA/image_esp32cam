@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _login() async {
     final response = await http.post(
-      Uri.parse('http://127.0.0.1/image_esp32cam/auth/login_api.php'),
+      Uri.parse('http://10.0.2.2/image_esp32cam/auth/login_api.php'),
       body: {
         'email': _emailController.text,
         'password': _passwordController.text,
