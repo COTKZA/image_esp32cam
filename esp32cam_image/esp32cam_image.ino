@@ -122,7 +122,7 @@ void handleAutoCapture() {
 void uploadImage(camera_fb_t *fb, bool isAutoCapture) {
     if (WiFi.status() == WL_CONNECTED) {
         HTTPClient http;
-        String serverPath = "http://192.168.100.221/image_esp32cam/uploads.php"; // Your server URL
+        String serverPath = "http://192.168.100.165/image_esp32cam/uploads.php"; // Your server URL
 
         // Prepare the file name
         String imageFileName = "image_" + String(millis()) + ".jpg"; // Unique file name based on timestamp

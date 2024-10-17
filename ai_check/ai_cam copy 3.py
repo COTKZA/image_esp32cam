@@ -50,11 +50,6 @@ def process_images():
     # อ่านรายชื่อไฟล์ในโฟลเดอร์
     files = os.listdir(folder_path)
 
-    # ถ้าไม่มีไฟล์ให้รอจนกว่าจะมีไฟล์เข้ามา
-    if not files:
-        print(Fore.YELLOW + "ไม่พบภาพ รอภาพใหม่...")
-        return  # ออกจากฟังก์ชันนี้และรอการเรียกใหม่
-
     # ตรวจสอบและอัปโหลดข้อมูล
     for filename in files:
         image_path = os.path.join(folder_path, filename)
@@ -104,6 +99,6 @@ def process_images():
 try:
     while True:
         process_images()  # ตรวจสอบและอัปโหลดภาพ
-        #time.sleep(1)  # รอ 10 วินาที ก่อนตรวจสอบโฟลเดอร์ใหม่อีกครั้ง
+        #time.sleep(10)  # รอ 10 วินาที ก่อนตรวจสอบโฟลเดอร์ใหม่อีกครั้ง
 except KeyboardInterrupt:
     print("โปรแกรมหยุดการทำงาน")
