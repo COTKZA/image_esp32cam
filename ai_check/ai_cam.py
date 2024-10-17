@@ -3,7 +3,7 @@ import os
 import mysql.connector
 from datetime import datetime
 import pytz
-import time
+# import time
 import torch
 from colorama import init, Fore
 
